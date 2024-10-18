@@ -61,7 +61,7 @@ public:
 
         Node* temp = head; //start from the head
         
-        while (temp && temp->data != value) 
+        while (temp && temp->data != value) //iterate through the list to find the given value
             temp = temp->next;
 
         if (!temp) return; //if value is not found, then return
@@ -71,29 +71,30 @@ public:
         else //if temp is the first node, update head
             head = temp->next; 
 
-        if (temp->next)
+        if (temp->next) //if temp is not the first node, then modify the pointer of the next node
             temp->next->prev = temp->prev;
-        else
+        else //if temp is the first node, update tail
             tail = temp->prev; 
 
-        delete temp;
+        delete temp; //deallocate the memory of the deleted node
     }
 
+    // delete a node at a given position
     void delete_pos(int pos) {
-        if (!head) {
+        if (!head) { // if list is empty, return
             cout << "List is empty." << endl;
             return;
         }
     
-        if (pos == 1) {
+        if (pos == 1) { //if the position is the first node, use pop_front to remove the first node
             pop_front();
             return;
         }
     
-        Node* temp = head;
+        Node* temp = head; //start from head
     
-        for (int i = 1; i < pos; i++){
-            if (!temp) {
+        for (int i = 1; i < pos; i++){ //iterate until you get to the desired position
+            if (!temp) { //if position doesn't exist, return 
                 cout << "Position doesn't exist." << endl;
                 return;
             }
