@@ -121,40 +121,43 @@ public:
         delete temp; //deallocate the memory of the deleted node
     }
 
+    //insert a node at the end of the list
     void push_back(int v) {
-        Node* newNode = new Node(v);
-        if (!tail)
+        Node* newNode = new Node(v); //new node
+        if (!tail) //if list is empty, set head and tail to the new node
             head = tail = newNode;
-        else {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
+        else { 
+            tail->next = newNode; //set the current tail's next pointer to new node
+            newNode->prev = tail; //set the new node's previous pointer to current tail
+            tail = newNode; //tail is now new node
         }
     }
     
+    //insert a node at the beginning of the list
     void push_front(int v) {
-        Node* newNode = new Node(v);
-        if (!head)
+        Node* newNode = new Node(v); //new node
+        if (!head) //if list is empty, set head and tail to the new node
             head = tail = newNode;
         else {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+            newNode->next = head; //link new node to current head
+            head->prev = newNode; //link current head back to new node
+            head = newNode; //update head to new node
         }
     }
     
+    //remove the first node of the list
     void pop_front() {
 
-        if (!head) {
+        if (!head) { //if list is empty, then return
             cout << "List is empty." << endl;
             return;
         }
 
-        Node * temp = head;
+        Node * temp = head; //store current head node
 
-        if (head->next) {
+        if (head->next) { //if the list has more than one node, move the head pointer to the nest node
             head = head->next;
-            head->prev = nullptr;
+            head->prev = nullptr; //set the new head's previous pointer to nullptr
         }
         else
             head = tail = nullptr;
@@ -184,28 +187,31 @@ public:
             delete temp;
         }
     }
+
+    //print the list from head to tail
     void print() {
-        Node* current = head;
-        if (!current) {
+        Node* current = head; //start from head
+        if (!current) { //if list is empty, return
             cout << "List is empty." << endl;
             return;
         }
-        while (current) {
-            cout << current->data << " ";
-            current = current->next;
+        while (current) { //iterate the list
+            cout << current->data << " "; //print the data of the current node
+            current = current->next; //move to next node
         }
         cout << endl;
     }
 
+    //print the list from tail to head
     void print_reverse() {
-        Node* current = tail;
-        if (!current) { 
+        Node* current = tail; //start from head
+        if (!current) { //if list is empty, return
             cout << "List is empty." << endl;
             return;
         }
         while (current) {
-            cout << current->data << " ";
-            current = current->prev;
+            cout << current->data << " "; //print the data of the current node
+            current = current->prev; //move to previous node
         }
         cout << endl;
     }
