@@ -3,34 +3,37 @@
 #include <iostream>
 using namespace std;
 
-const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
+const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20; //constants for minimum and maximum values
 
 class DoublyLinkedList {
 private:
     struct Node {
         int data;
-        Node* prev;
-        Node* next;
+        Node* prev; //pointer to the previous node
+        Node* next; //pointer to the next node
+        //constructor
         Node(int val, Node* p = nullptr, Node* n = nullptr) {
-            data = val; 
-            prev = p;
-            next = n;
+            data = val; //set the data value
+            prev = p; //set the previous node pointer
+            next = n; //set the next node pointer
         }
     };
 
-    Node* head;
-    Node* tail;
+    Node* head; //pointer to the first node
+    Node* tail; //pointer to the last node
 
 public:
+    //constructor initializes the head and tail to nullptr
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
+    //insert a new node
     void insert_after(int value, int position) {
-        if (position < 0) {
+        if (position < 0) { //if position is <0, invalid position, return
             cout << "Position must be >= 0." << endl;
             return;
         }
 
-        Node* newNode = new Node(value);
+        Node* newNode = new Node(value); //new node with given value
         if (!head) {
             head = tail = newNode;
             return;
@@ -101,20 +104,20 @@ public:
             else
                 temp = temp->next;
         }
-        if (!temp) {
+        if (!temp) { //if position doesn't exist, return 
             cout << "Position doesn't exist." << endl;
             return;
         }
     
-        if (!temp->next) {
+        if (!temp->next) { //if the position is the last node, use pop_back to remove the last node
             pop_back();
             return;
         }
     
         Node* tempPrev = temp->prev;
-        tempPrev->next = temp->next;
-        temp->next->prev = tempPrev;
-        delete temp;
+        tempPrev->next = temp->next; //link the previous note to the next node
+        temp->next->prev = tempPrev; //link the next note to the previous node
+        delete temp; //deallocate the memory of the deleted node
     }
 
     void push_back(int v) {
