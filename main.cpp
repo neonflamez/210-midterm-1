@@ -34,28 +34,29 @@ public:
         }
 
         Node* newNode = new Node(value); //new node with given value
-        if (!head) {
+        if (!head) { //if list is empty, set head and tail to the new node
             head = tail = newNode;
             return;
         }
 
-        Node* temp = head;
-        for (int i = 0; i < position && temp; ++i)
+        Node* temp = head; //start from head
+        for (int i = 0; i < position && temp; ++i) //iterate to desired position
             temp = temp->next;
 
-        if (!temp) {
+        if (!temp) { //if the position exceeds the list size, deallocate the memory
             cout << "Position exceeds list size. Node not inserted.\n";
             delete newNode;
             return;
         }
 
-        newNode->next = temp->next;
-        newNode->prev = temp;
-        if (temp->next)
+        //new node, after found desired position
+        newNode->next = temp->next; //link newNode to node after temp
+        newNode->prev = temp; //link newNode to current temp node
+        if (temp->next) //if temp is not the last node, then modify the pointer of the next node
             temp->next->prev = newNode;
-        else
+        else //if temp is the last node, update tail
             tail = newNode;
-        temp->next = newNode;
+        temp->next = newNode; //modify the current node's next pointer to new node
     }
     
     //delete a node by its value
@@ -74,9 +75,9 @@ public:
         else //if temp is the first node, update head
             head = temp->next; 
 
-        if (temp->next) //if temp is not the first node, then modify the pointer of the next node
+        if (temp->next) //if temp is not the last node, then modify the pointer of the next node
             temp->next->prev = temp->prev;
-        else //if temp is the first node, update tail
+        else //if temp is the last node, update tail
             tail = temp->prev; 
 
         delete temp; //deallocate the memory of the deleted node
