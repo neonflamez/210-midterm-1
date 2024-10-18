@@ -155,36 +155,38 @@ public:
 
         Node * temp = head; //store current head node
 
-        if (head->next) { //if the list has more than one node, move the head pointer to the nest node
+        if (head->next) { //if the list has more than one node, move the head pointer to the next node
             head = head->next;
             head->prev = nullptr; //set the new head's previous pointer to nullptr
         }
         else
-            head = tail = nullptr;
-        delete temp;
+            head = tail = nullptr; //if there is only one node, set head and tail to nullptr
+        delete temp; //deallocate the memory of the removed node
     }
 
+    //remove the last node of the list
     void pop_back() {
-        if (!tail) {
+        if (!tail) { //if the list is empty, return
             cout << "List is empty." << endl;
             return;
         }
-        Node * temp = tail;
+        Node * temp = tail; //store current tail node
 
-        if (tail->prev) {
+        if (tail->prev) { //if the list has more than one node, move the tail pointer to the previous node
             tail = tail->prev;
-            tail->next = nullptr;
+            tail->next = nullptr; //set the new tail's previous pointer to nullptr
         }
         else
-            head = tail = nullptr;
-        delete temp;
+            head = tail = nullptr; //if there is only one node, set head and tail to nullptr
+        delete temp; //deallocate the memory of the removed node
     }
 
+    //destructor
     ~DoublyLinkedList() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
+        while (head) { //iterate through list
+            Node* temp = head; //store current head node
+            head = head->next; //move the head pointer to next node
+            delete temp; //deallocate the memory of the removed node
         }
     }
 
@@ -215,11 +217,41 @@ public:
         }
         cout << endl;
     }
+
+    //print every other element
+    void every_other_element(){
+        Node* current = head; //start from head
+        if(!current){ //if the list is empty, return
+            cout << "List is empty." << endl;
+            return;
+        }
+
+        while(current){ //iterate the list
+            cout << current->data << " "; //print the data of the current nnode
+            if(current->next) //move to the node after the next
+                current = current->next->next;
+            else
+                break; //stop if no next node
+        }
+        cout << endl;
+    }
 };
 
 int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+    DoublyLinkedList list;
 
+    list.push_back(1);
+    list.push_back(2);
+    list.push_back(3);
+    list.push_back(4);
+    list.push_back(5);
+    list.push_back(6);
+
+    cout << "Original List: ";
+    list.print();
+
+    cout << "Every Other Element: ";
+    list.every_other_element();
     
     return 0;
 }
